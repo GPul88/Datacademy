@@ -1,0 +1,15 @@
+name: Execute notebook
+
+on: [push]
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v3
+    - uses: yaananth/run-notebook@v2
+      with:
+        notebook: ./Modules/M1_SQL/src/main.ipynb 
+          
