@@ -8,8 +8,8 @@ import pandas as pd
 class Database:
     def __init__(self, db_name='M1_SQL.db'):
         self.db_name = db_name
-        self.working_dir = f"{os.getcwd().split('Datacademy')[0]}Datacademy\M1-SQL\src"
-        self.data_dir = f"{os.getcwd().split('Datacademy')[0]}Datacademy\data\M1-SQL"
+        self.working_dir = f"{os.getcwd().split('Datacademy')[0]}Datacademy\M1_SQL\src"
+        self.data_dir = f"{os.getcwd().split('Datacademy')[0]}Datacademy\data\M1_SQL"
         self.SQLALCHEMY_DATABASE_URL = f"sqlite:///{os.getcwd()}/{self.db_name}"
 
         self.create_database()
