@@ -8,9 +8,10 @@ import pandas as pd
 class Database:
     def __init__(self, db_name='M1_SQL.db'):
         self.db_name = db_name
-        self.working_dir = f"{os.getcwd().split('Datacademy')[0]}Datacademy\M1_SQL\src"
-        self.data_dir = f"{os.getcwd().split('Datacademy')[0]}Datacademy\data\M1_SQL"
-        self.SQLALCHEMY_DATABASE_URL = f"sqlite:///{os.getcwd()}/{self.db_name}"
+        self.working_dir = os.path.join(os.getcwd().split('Datacademy')[0], "Datacademy", "Modules", "M1_SQL", "src")
+        self.data_dir = os.path.join(os.getcwd().split('Datacademy')[0], "Datacademy", "data", "M1_SQL")
+        self.database_location = os.path.join(self.working_dir, self.db_name) 
+        self.SQLALCHEMY_DATABASE_URL = f"sqlite:///{self.database_location}"
 
         self.create_database()
         self.data_dtypes = {
@@ -30,8 +31,8 @@ class Database:
         Create the database engine and the declarative base.
         """
         # If the database file already exists, delete file
-        if os.path.exists(f'{os.getcwd()}\{self.db_name}'):
-            os.remove(f'{os.getcwd()}\{self.db_name}')
+        if os.path.exists(os.path.join(os.getcwd(), self.db_name)):
+            os.remove(os.path.join(os.getcwd(), self.db_name))
 
         self.engine = _sql.create_engine(
             self.SQLALCHEMY_DATABASE_URL, 
@@ -78,13 +79,13 @@ class Database:
         Upload data from CSV files onto the created database using the insert queries.
         """
         # Establish database connection
-        conn = sqlite3.connect(f'{os.getcwd()}\{self.db_name}')
+        conn = sqlite3.connect(self.database_location)
         cur = conn.cursor()
 
         # For all data files in the directory
         fileNames = os.listdir(self.data_dir)
         for file in fileNames:
-            df = pd.read_csv(f'{self.data_dir}\{file}', delimiter=';')
+            df = pd.read_csv(os.path.join(self.data_dir, file), delimiter=';')
 
             # Ensure the correct data types of the dataframes
             for col, col_type in self.data_dtypes[file.split('.')[0]].items():
