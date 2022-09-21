@@ -5,6 +5,8 @@ import sqlite3
 import os
 import pandas as pd
 
+from typing import Optional
+
 class Database:
     def __init__(self, db_name='M1_SQL.db'):
         self.db_name = db_name
@@ -83,7 +85,7 @@ class Database:
         cur = conn.cursor()
 
         # For all data files in the directory
-        fileNames = os.listdir(self.data_dir)
+        fileNames = [f for f in os.listdir(self.data_dir) if ".csv" in f]
         for file in fileNames:
             df = pd.read_csv(os.path.join(self.data_dir, file), delimiter=';')
 
@@ -99,7 +101,7 @@ class Database:
         # Close database connection
         conn.close()
         
-    def execute_query(self, query:str, return_df:bool=False, print_string="") -> list or pd.DataFrame:
+    def execute_query(self, query:str, exercise: Optional[str]=None, return_df:bool=False, print_string:str="", save_output:bool=True) -> list or pd.DataFrame:
         """
         Establish database connection, execute query and close database connection.
 
@@ -142,6 +144,12 @@ class Database:
         elif CRUD_Indicator[:4] == "DROP":
             return "Table dropped successfully!"
         else:
+            if save_output:
+                if not os.path.exists(os.path.join(self.data_dir, "answers")):
+                    os.mkdir(os.path.join(self.data_dir, "answers"))
+                if exercise is None:
+                    return "Please provide the exercise name in the function if you want to save the outputs."
+                data.to_csv(os.path.join(self.data_dir, "answers", f"{exercise}.csv"), sep=";", index=False)
             return data
 
     def retrieve_tables(self) -> list:
