@@ -2,7 +2,7 @@ from Modules.M1_SQL.tests.validate_results import CheckResults
 import os
 import pandas as pd
 
-answers_dir = "./data/M1_SQL/answers"
+answers_dir = "./Modules/M1_SQL/answers"
 
 exercises = [f for f in os.listdir(answers_dir) if ".csv" in f]
 exercises.sort()
