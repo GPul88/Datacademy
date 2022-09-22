@@ -16,5 +16,5 @@ jobs:
         pip install -e .
     - name: PyTest
       run: |
-        pytest -v Modules/M1_SQL/tests/test.py
+        pytest -v Modules/M3_SQL/tests/test.py
           
