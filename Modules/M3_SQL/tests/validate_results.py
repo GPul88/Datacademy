@@ -1,7 +1,7 @@
 class CheckResults():
-    def __init__(self, answers: dict, module="M1_SQL"):
+    def __init__(self, answers: dict, module="M3_SQL"):
         self.correct_answers = {
-            'M1_SQL': {
+            'M3_SQL': {
                 'R_B1': {
                     "n_rows": 8, 
                     "n_columns": 3,
