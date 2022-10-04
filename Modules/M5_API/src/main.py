@@ -4,7 +4,7 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
-with open(f"{os.getcwd().split('Datacademy')[0]}Datacademy\data\M3_API\customers.json", 'rb') as jsonFile:
+with open(f"{os.getcwd().split('Datacademy')[0]}Datacademy\data\M5_API\customers.json", 'rb') as jsonFile:
     customers = json.load(jsonFile)
     customers = {i: customers[str(i)] for i in range(len(customers.keys()))}
 
@@ -14,17 +14,17 @@ def get_customer(customerId: int):
         return {"Error", "Customer does not exists yet."}
     return customers[customerId]
 
-# @app.get("/get-customer-by-name/")
-# def get_customer_by_name(lastName: str):
-#     for customerId in customers:
-#         if customers[customerId]['lastName'] == lastName:
-#             return customers[customerId]
+@app.get("/get-customer-by-name/")
+def get_customer_by_name(lastName: str):
+    for customerId in customers:
+        if customers[customerId]['lastName'] == lastName:
+            return customers[customerId]
     
-#     return {"Error", f"Customer with last name: '{lastName}' does not exists"}
+    return {"Error", f"Customer with last name: '{lastName}' does not exists"}
 
-# @app.get("/get-customers/")
-# def get_customers(skip: int, limit: int):
-#     return {i: customers[i] for i in range(skip, min(skip+limit, len(customers)))}
+@app.get("/get-customers/")
+def get_customers(skip: int, limit: int):
+    return {i: customers[i] for i in range(skip, min(skip+limit, len(customers)))}
 
 @app.post("/create-customer/{customerId}")
 def create_customer(customerId: int, firstName: str, lastName: str, address: str):
@@ -46,10 +46,26 @@ def update_customer_address(customerId: int, address: str):
     customers[customerId]['address'] = address
     return customers[customerId]
 
+
+
+
 @app.delete("/delete-customer/{customerId}")
 def delete_customer(customerId:int):
     if customerId not in customers:
         return {"Error", "Customer does not exists."}
     
     del customers[customerId]
-    return {"Message": " Student deleted successfully."}
+    return {"Message": "Customer deleted successfully."}
+
+@app.delete("/delete-customer-by-name/")
+def delete_customer_by_name(firstName: str, lastName:str):
+    foundCustomer = False
+    for customer in customers.values():
+        if customer['firstName'] == firstName and customer['lastName'] == lastName:
+            foundCustomer = True
+            del customer[customer['customerId']]
+    
+    if foundCustomer == False:
+        return {"Error": "The customer you try to delete does not exist."}
+    else:
+        return {"Message": "Customer deleted successfully."}
