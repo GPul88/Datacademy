@@ -34,7 +34,7 @@ class Function():
         iris['sepal width (mm)'] = iris['sepal width (mm)'].apply(lambda x: x*10)
 
         # Add outlier to the DataFrame
-        index_val = random.randint(0, 149)
+        index_val = 72
         value = iris.loc[index_val, 'sepal length (cm)']
         new_value = float(str(value).split('.')[0] + '0.' + str(value).split('.')[-1])
         iris.loc[index_val, 'sepal length (cm)'] = new_value
@@ -46,10 +46,10 @@ class Function():
         location_outlr = self.iris[self.iris['sepal length (cm)'] == outlier_value].index[0]
 
         # get index of first occurrence of '0'
-        id = str(outlr).index('0')
+        id = str(outlier_value).index('0')
 
         # remove the first occurrence of '0'
-        new_value = float(str(outlr)[:id] + str(outlr)[id+1:])
+        new_value = float(str(outlier_value)[:id] + str(outlier_value)[id+1:])
 
         # Append the new value to the DataFrame
         self.iris.loc[location_outlr, 'SepalLengthCm'] = new_value
@@ -70,5 +70,5 @@ class Function():
                 os.mkdir(os.path.join(self.data_dir, "answers"))
             if exercise is None:
                 return "Please provide the exercise name in the function if you want to save the outputs."
-            data.to_csv(os.path.join(self.data_dir, "answers", f"{exercise}.csv"), sep=";", index=False)
-        return data
+            self.data.to_csv(os.path.join(self.data_dir, "answers", f"{exercise}.csv"), sep=";", index=False)
+        return self.data
