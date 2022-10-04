@@ -14,6 +14,8 @@ class Function():
         self.data_dir = os.path.join(os.getcwd().split('Datacademy')[0], "Datacademy", "data", "M4_ML")
         self.database_location = os.path.join(self.working_dir, self.file_name)
 
+        self.imputed_outlier_index = 72
+
         self.iris = self.data_modification()
 
 
@@ -34,7 +36,7 @@ class Function():
         iris['sepal width (mm)'] = iris['sepal width (mm)'].apply(lambda x: x*10)
 
         # Add outlier to the DataFrame
-        index_val = 72
+        index_val = self.imputed_outlier_index
         value = iris.loc[index_val, 'sepal length (cm)']
         new_value = float(str(value).split('.')[0] + '0.' + str(value).split('.')[-1])
         iris.loc[index_val, 'sepal length (cm)'] = new_value
@@ -52,7 +54,7 @@ class Function():
         new_value = float(str(outlier_value)[:id] + str(outlier_value)[id+1:])
 
         # Append the new value to the DataFrame
-        self.iris.loc[location_outlr, 'SepalLengthCm'] = new_value
+        self.iris.loc[self.imputed_outlier_index, 'sepal length (cm)'] = new_value
 
 
     def supervised_dataset(self):
