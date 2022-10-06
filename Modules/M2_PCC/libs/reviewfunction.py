@@ -1,10 +1,13 @@
 import os
+from sklearn import datasets
 
 
 class ReviewFunction:
     def __init__(self):
         self.working_dir = os.path.join(os.getcwd().split('Datacademy')[0], "Datacademy", "Modules", "M2_PCC", "src")
         self.data_dir = os.path.join(os.getcwd().split('Datacademy')[0], "Datacademy", "data", "M2_PCC")
+
+        self.data = datasets.load_iris()
 
     def check_answer(self, answer, exercise):
         if exercise[0] == "B":
