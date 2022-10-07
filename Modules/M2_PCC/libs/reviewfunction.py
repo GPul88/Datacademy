@@ -1,13 +1,16 @@
 import os
 from sklearn import datasets
-
+import pandas as pd
 
 class ReviewFunction:
     def __init__(self):
         self.working_dir = os.path.join(os.getcwd().split('Datacademy')[0], "Datacademy", "Modules", "M2_PCC", "src")
         self.data_dir = os.path.join(os.getcwd().split('Datacademy')[0], "Datacademy", "data", "M2_PCC")
 
-        self.data = datasets.load_iris()
+        self.data = datasets.load_diabetes()
+        self.n_features = self.data.data.shape[1]
+        self.input_columns = ['column_' + str(i) for i in range(self.n_features)]
+        self.pandas_data = pd.DataFrame(self.data.data, columns=self.input_columns)
 
     def check_answer(self, answer, exercise):
         if exercise[0] == "B":
@@ -35,7 +38,6 @@ class ReviewFunction:
                 print("Oops, you're wrong.")
 
     def check_C(self, ans, ex):
-        
         pass
 
     def check_D(self, ans, ex):
