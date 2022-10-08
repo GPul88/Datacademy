@@ -45,7 +45,7 @@ def create_customer(customerId: int, firstName: str, lastName: str, address: str
     }
     return customers[customerId]
 
-@app.post("/create-customer2/")
+@app.post("/create-customer-auto-increment/")
 def create_customer(firstName: str, lastName: str, address: str):
     customerId = max(customers.keys()) + 1
     
@@ -67,6 +67,15 @@ def update_customer_address(customerId: int, address: str):
     
     customers[customerId]['address'] = address
     return customers[customerId]
+
+@app.put("/update-customer-address-by-name/")
+def update_customer_address(firstName: str, lastName: str, address: str):
+    for customerId in customers:
+        if customers[customerId]['firstName'] == firstName and customers[customerId]['lastName'] == lastName:
+            customers[customerId]['address'] = address
+
+            return customers[customerId]
+
 
 
 
