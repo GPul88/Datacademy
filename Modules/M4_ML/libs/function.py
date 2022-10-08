@@ -19,8 +19,13 @@ class Function():
         self.iris = self.data_modification()
 
 
-    def data_modification(self):
-        """ Create a modified DataFrame for the iris dataset """
+    def data_modification(self) -> pd.DataFrame:
+        """
+        Create and modify a version of the Iris dataset suitable for the learning task.
+
+        Returns:
+            pd.DataFrame: Modified Iris dataset for learning tasks.
+        """
         # Transform to Pandas DataFrame
         iris = pd.DataFrame(data=self.data.data, columns=self.data.feature_names)
         
@@ -43,7 +48,13 @@ class Function():
 
         return iris
 
-    def remove_0_in_outlier(self, outlier_value):
+    def remove_0_in_outlier(self, outlier_value:float) -> None:
+        """
+        Adjusts the outlier value by removing the 0 that is inserted by accident.
+
+        Args:
+            outlier_value (float): Value of the outlier to be removed.
+        """
         # Verwijder de 0 in de outlier value en update the DataFrame
         location_outlr = self.iris[self.iris['sepal length (cm)'] == outlier_value].index[0]
 
@@ -57,14 +68,25 @@ class Function():
         self.iris.loc[self.imputed_outlier_index, 'sepal length (cm)'] = new_value
 
 
-    def supervised_dataset(self):
-        iris = pd.DataFrame(data=self.data.data, columns=self.data.feature_names)
-        iris['target'] = self.data.target.tolist()
+    def prepare_supervised_learning(self) -> None:
+        """
+        Remove the added column created during clustering and add a target column containing all labels belonging to the Iris data.
+        """
+        # Copy the dataset used for unsupervised learning onto a class variable for later use.
+        self.unsupervised_dataset = self.iris.copy(deep=True)
 
+        # Recreate dataset and add the target column.
+        self.iris = self.data_modification()
+        self.iris['target'] = self.data.target.tolist()
 
-    def unsupervised_dataset(self):
-        pass
+    def get_unsupervised_dataset(self) -> pd.DataFrame:
+        """
+        Return the saved unsupervised dataset that is saved when preparing the supervised learning set.
 
+        Returns:
+            pd.DataFrame: Preprocessed Pandas DataFrame containing the data used for unsupervised learning.
+        """
+        return self.unsupervised_dataset
 
     def execute_function(self, exercise:str=None, save_output:bool=True):
         if save_output:
