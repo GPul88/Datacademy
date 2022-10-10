@@ -23,6 +23,30 @@ class ReviewFunction:
             print("You didn't specify the correct exercise.")
 
     def check_B(self, ans, ex):
+        if ex[1] == "1":
+            if ans < 70.66:
+                return "Incorrect, a Boeing 747-100 is larger."
+            elif ans > 70.66:
+                return "Incorrect, a Boeing 747-100 is smaller."
+            else:
+                return "Correct! A Boeing 747-100 is indeed 70.66 meters."
+        
+        if ex[1] == "2":
+            if ans < 146.7:
+                return "Incorrect, an Iphone 12 is larger."
+            elif ans > 146.7:
+                return "Incorrect, an Iphone 12 is smaller."
+            else:
+                return "Correct! An Iphone 12 is indeed 146.7 millimeters."
+        
+        if ex[1] == "3":
+            if ans == True:
+                return "Correct! The more you know!"
+            else:
+                return "Incorrect! You might want to check your math once more"
+
+        
+
         if ex[1] in ["1", "2"]:
             if type(ans) == float:
                 if 50 < ans < 150:
