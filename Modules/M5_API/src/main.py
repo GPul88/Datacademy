@@ -1,11 +1,11 @@
 import json
-# import os
+import os
 from fastapi import FastAPI
 from pydantic import BaseModel
 
 app = FastAPI()
-# dataPath = os.path.join(os.getcwd().split('datacademy')[0], "data", "M5_API", "customers.json")
-dataPath = "/home/wvdgeest/projects/Datacademy/data/M5_API/customers.json"
+dataPath = os.path.join(os.getcwd().split('datacademy')[0], "data", "M5_API", "customers.json")
+# dataPath = "/home/wvdgeest/projects/Datacademy/data/M5_API/customers.json"
 
 with open(dataPath, 'rb') as jsonFile:
     customers = json.load(jsonFile)
