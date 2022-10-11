@@ -13,14 +13,17 @@ class ReviewFunction:
         self.pandas_data = pd.DataFrame(self.data.data, columns=self.input_columns)
 
     def check_answer(self, answer, exercise):
-        if exercise[0] == "B":
-            self.check_B(answer, exercise)
-        elif exercise[0] == "C":
-            self.check_C(answer, exercise)
-        elif exercise[0] == "D":
-            self.check_D(answer, exercise)
+        if len(exercise) > 2:
+            if exercise[0] == "B":
+                self.check_B(answer, exercise)
+            elif exercise[0] == "C":
+                self.check_C(answer, exercise)
+            elif exercise[0] == "D":
+                self.check_D(answer, exercise)
+            else:
+                print("You didn't specify a correct exercise reference.")
         else:
-            print("You didn't specify the correct exercise.")
+            print("You didn't specify a correct exercise reference.")
 
     def check_B(self, ans, ex):
         if ex[1] == "1":
@@ -41,11 +44,27 @@ class ReviewFunction:
         
         if ex[1] == "3":
             if ans == True:
-                return "Correct! The more you know!"
+                return "Correct! The more you know."
             else:
                 return "Incorrect! You might want to check your math once more"
-
         
+        if ex[1] == "4":
+            if ans == False:
+                return "Correct! They call it an 'upgrade'."
+            else:
+                return "Incorrect! Bigger is not always better."
+        
+        if ex[5] == "5":
+            if ans == "Yes" or ans == "yes" or ans == "YES" or ans == "Y" or ans == "y":
+                return "Incorrect! Make sure to use the variables created in B1 and B2 correctly."
+            elif ans == "No" or ans == "no" or ans == "NO" or ans == "N" or ans == "n":
+                return "Correct!"
+            else:
+                return "We could not recognize your answer, make sure it follows the given format."
+        
+
+
+
 
         if ex[1] in ["1", "2"]:
             if type(ans) == float:
