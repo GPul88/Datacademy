@@ -1,102 +1,125 @@
 import json
-import os
+# import os
 from fastapi import FastAPI
+from pydantic import BaseModel
 
 app = FastAPI()
-dataPath = os.path.join(os.getcwd().split('datacademy')[0], "datacademy", "data", "M5_API", "customers.json")
+# dataPath = os.path.join(os.getcwd().split('datacademy')[0], "data", "M5_API", "customers.json")
+dataPath = "/home/wvdgeest/projects/Datacademy/data/M5_API/customers.json"
 
 with open(dataPath, 'rb') as jsonFile:
     customers = json.load(jsonFile)
     customers = {i: customers[str(i)] for i in range(len(customers.keys()))}
 
 
+@app.get("/")
+def welcome():
+    return "Welcome at the Module 5 API!"
 
-### API GET Request(s) ####
+
+# create customer Classes
+class Customer(BaseModel):
+    firstName: str
+    lastName: str
+    address: str
+
+
+class CustomerAddress(BaseModel):
+    address: str
+
+
+class CustomerName(BaseModel):
+    firstName: str
+    lastName: str
+
+
+# API GET Request(s) ####
 @app.get("/get-customer/{customerId}")
 def get_customer(customerId: int):
     if customerId not in customers:
         return {"Error", "Customer does not exists yet."}
     return customers[customerId]
 
-@app.get("/get-customer-by-name/")
+
+@app.get("/get-customer-by-name/{lastName}")
 def get_customer_by_name(lastName: str):
     for customerId in customers:
         if customers[customerId]['lastName'] == lastName:
             return customers[customerId]
-    
+
     return {"Error", f"Customer with last name: '{lastName}' does not exists"}
 
+
 @app.get("/get-customers/")
-def get_customers(skip: int, limit: int):
+def get_customers(skip: int = 0, limit: int = 3):
     return {i: customers[i] for i in range(skip, min(skip+limit, len(customers)))}
 
 
-
-### API POST Request(s) ####
+# API POST Request(s) ####
 @app.post("/create-customer/{customerId}")
-def create_customer(customerId: int, firstName: str, lastName: str, address: str):
+def create_customer(customerId: int, customer: Customer):
     if customerId in customers:
         return {"Error", f"customerId already used, next id available is: {max(customers.keys())+1}."}
-    
+
     customers[customerId] = {
-        "firstName": firstName,
-        "lastName": lastName,
-        "address": address
+        "firstName": customer.firstName,
+        "lastName": customer.lastName,
+        "address": customer.address
     }
     return customers[customerId]
+
 
 @app.post("/create-customer-auto-increment/")
-def create_customer(firstName: str, lastName: str, address: str):
+def create_customer_autoincrement(customer: Customer):
     customerId = max(customers.keys()) + 1
-    
+
     customers[customerId] = {
-        "firstName": firstName,
-        "lastName": lastName,
-        "address": address
+        "firstName": customer.firstName,
+        "lastName": customer.lastName,
+        "address": customer.address
     }
     return customers[customerId]
 
 
-
-
-### API PUT Request(s) ####
+# API PUT Request(s) ####
 @app.put("/update-customer-address/{customerId}")
-def update_customer_address(customerId: int, address: str):
+def update_customer_address(customerId: int, customer_address: CustomerAddress):
     if customerId not in customers:
         return {"Error", "Customer does not exists."}
-    
-    customers[customerId]['address'] = address
+
+    customers[customerId]['address'] = customer_address.address
     return customers[customerId]
 
+
 @app.put("/update-customer-address-by-name/")
-def update_customer_address(firstName: str, lastName: str, address: str):
+def update_customer_address_by_name(customer: Customer):
     for customerId in customers:
-        if customers[customerId]['firstName'] == firstName and customers[customerId]['lastName'] == lastName:
-            customers[customerId]['address'] = address
+        if customers[customerId]['firstName'] == customer.firstName and customers[customerId]['lastName'] == customer.lastName:
+            customers[customerId]['address'] = customer.address
 
             return customers[customerId]
 
 
-
-
-### API DELETE Request(s) ####
+# API DELETE Request(s) ####
 @app.delete("/delete-customer/{customerId}")
-def delete_customer(customerId:int):
+def delete_customer(customerId: int):
     if customerId not in customers:
         return {"Error", "Customer does not exists."}
-    
+
     del customers[customerId]
-    return {"Message": "Customer deleted successfully."}
+    return {"Message": f"Customer {customerId} deleted successfully."}
+
 
 @app.delete("/delete-customer-by-name/")
-def delete_customer_by_name(firstName: str, lastName:str):
+def delete_customer_by_name(name: CustomerName):
     foundCustomer = False
-    for customer in customers.values():
-        if customer['firstName'] == firstName and customer['lastName'] == lastName:
+    for customer in customers:
+        if customers[customer]['firstName'] == name.firstName and customers[customer]['lastName'] == name.lastName:
             foundCustomer = True
-            del customer[customer['customerId']]
-    
-    if foundCustomer == False:
-        return {"Error": "The customer you try to delete does not exist."}
+            del customers[customer]
+            break
+
+    if not foundCustomer:
+        return {"Error": "The customer you are trying to delete does not exist."}
     else:
-        return {"Message": "Customer deleted successfully."}
+        return {"Message": f"Customer {name.firstName} {name.lastName} deleted successfully."}
