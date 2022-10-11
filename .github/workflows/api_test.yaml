@@ -19,5 +19,5 @@ jobs:
         pip install -e .
     - name: PyTest
       run: |
-        pytest -v Modules/M5_API/tests/test_M5.py
+        pytest -v Modules/M5_API/tests/test.py
           
