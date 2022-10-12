@@ -12,7 +12,6 @@ account_key = os.getenv("AZURE_ACCOUNT_KEY")
 data = get_data_from_blob(
     module="M5",
     account_key=account_key)
-
 customers = data['customers.json']
 
 
