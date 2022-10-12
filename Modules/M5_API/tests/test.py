@@ -112,9 +112,7 @@ def test_delete_customer():
 
     assert response.status_code == 200
     assert response.json() == {'Message': 'Customer 0 deleted successfully.'}
-    assert (
-        client.get("/get-customer/0").json() == [
-            'Customer does not exists yet.', 'Error'])
+    assert 'Customer does not exists yet.' in client.get("/get-customer/0").json()
 
 
 def test_delete_customer_by_name():
@@ -126,7 +124,4 @@ def test_delete_customer_by_name():
     response = client.delete("/delete-customer-by-name/", json=data)
     assert response.status_code == 200
     assert response.json() == {'Message': 'Customer Jamie Dean deleted successfully.'}
-    assert (
-            client.get("/get-customer/2").json() == [
-                'Customer does not exists yet.', 'Error']
-    )
+    assert 'Customer does not exists yet.' in client.get("/get-customer/2").json()

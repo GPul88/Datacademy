@@ -1,15 +1,22 @@
-import json
-import os
 from fastapi import FastAPI
 from pydantic import BaseModel
+from get_data import get_data_from_blob
+import os
+from dotenv import load_dotenv
+
+
+load_dotenv()
+
+account_key = os.getenv("AZURE_ACCOUNT_KEY")
+
+data = get_data_from_blob(
+    module="M5",
+    account_key=account_key)
+
+customers = data['customers.json']
+
 
 app = FastAPI()
-dataPath = os.path.join(os.getcwd().split('datacademy')[0], "data", "M5_API", "customers.json")
-# dataPath = "/home/wvdgeest/projects/Datacademy/data/M5_API/customers.json"
-
-with open(dataPath, 'rb') as jsonFile:
-    customers = json.load(jsonFile)
-    customers = {i: customers[str(i)] for i in range(len(customers.keys()))}
 
 
 @app.get("/")
