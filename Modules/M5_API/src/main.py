@@ -7,11 +7,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-account_key = os.getenv("AZURE_ACCOUNT_KEY")
+datacademy_id = os.getenv("TEST_DATACADEMY_ID")
 
 data = get_data_from_blob(
-    module="M5",
-    account_key=account_key)
+    module="M5_API",
+    datacademy_id=datacademy_id)
 customers = data['customers.json']
 
 
