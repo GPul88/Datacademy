@@ -1,4 +1,4 @@
-name: bootcamp2
+name: datacademy
 channels:
   - anaconda
   - conda-forge
