@@ -13,6 +13,8 @@ data = get_data_from_blob(
     module="M5_API",
     datacademy_id=datacademy_id)
 
+assert type(data) == dict, "Something went wrong with getting the data"
+
 customers = data['customers.json']
 
 

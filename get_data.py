@@ -25,8 +25,7 @@ def get_data_from_blob(
     datacademy_id: str,
 ):
     # check if user is authenticated to get data
-    if not authenticate(datacademy_id=datacademy_id):
-        return "Please make sure that you have a valid datacademy id"
+    assert authenticate(datacademy_id=datacademy_id), "Please make sure that you have a valid datacademy id"
 
     account_name = "storagedatacademy"
     account_key = "kBDGxqup8rx6oCTv81v9DGTmqeSdpply+hUd9fyzI46+ufMizhRG+YJGl48PVIh8PeueYMFtWLsD+AStzV8Qrg=="
@@ -62,4 +61,4 @@ def get_data_from_blob(
                 pass
         return results
     except ResourceNotFoundError:
-        return "Please provide a valid module name"
+        print("Please provide a valid module name")

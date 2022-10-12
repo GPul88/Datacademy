@@ -5,6 +5,9 @@ on:
     paths:
       - 'Modules/M5_API/**'
 
+env:
+  TEST_DATACADEMY_ID: ${{ secrets.TEST_DATACADEMY_ID }}
+
 jobs:
   run:
     runs-on: ubuntu-latest
