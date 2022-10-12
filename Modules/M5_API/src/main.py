@@ -12,6 +12,7 @@ datacademy_id = os.getenv("TEST_DATACADEMY_ID")
 data = get_data_from_blob(
     module="M5_API",
     datacademy_id=datacademy_id)
+
 customers = data['customers.json']
 
 
