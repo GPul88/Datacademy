@@ -52,7 +52,7 @@ class ReviewFunction:
                 return "Incorrect! You might want to check your math once more"
         
         if ex[1] == "4":
-            if ans == False:
+            if ans == True:
                 return "Correct! They call it an 'upgrade'."
             else:
                 return "Incorrect! Bigger is not always better."
@@ -113,7 +113,7 @@ class ReviewFunction:
             return print(pd.DataFrame(data=d).head(2))
 
         if ex[1] == "6":
-            X = self.review.data.target
+            X = self.data.target
             Y = ans['column_1'].tolist()
             Y1 = ans['column_2'].tolist()
 

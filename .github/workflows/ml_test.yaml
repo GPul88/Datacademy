@@ -1,6 +1,9 @@
-name: Execute notebook
+name: SQL tests
 
-on: [push]
+on: 
+  push:
+    paths:
+      - 'Modules/M4_ML/**'
 
 jobs:
   run:
@@ -16,5 +19,5 @@ jobs:
         pip install -e .
     - name: PyTest
       run: |
-        pytest -v Modules/M3_SQL/tests/test.py
+        pytest -v Modules/M4_ML/tests/test.py
           

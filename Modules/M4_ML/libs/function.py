@@ -1,8 +1,8 @@
 import os
-import numpy as np 			        # linear algebra
-import pandas as pd 			    # data processing
+import numpy as np 			        
+import pandas as pd 			    
 import random
-import matplotlib.pyplot as plt		# visualization
+import matplotlib.pyplot as plt
 from sklearn import datasets
 
 
@@ -67,7 +67,6 @@ class Function():
         # Append the new value to the DataFrame
         self.iris.loc[self.imputed_outlier_index, 'sepal length (cm)'] = new_value
 
-
     def prepare_supervised_learning(self) -> None:
         """
         Remove the added column created during clustering and add a target column containing all labels belonging to the Iris data.
@@ -96,3 +95,23 @@ class Function():
                 return "Please provide the exercise name in the function if you want to save the outputs."
             self.data.to_csv(os.path.join(self.data_dir, "answers", f"{exercise}.csv"), sep=";", index=False)
         return self.data
+
+    def answers_data_understanding(
+        self,
+        missing_values_petal_length: int,
+        average_value_sepal_width: float,
+        highly_correlated_columns: tuple, 
+        ) -> str:
+
+        answers_df = pd.DataFrame(data={
+            "missing_values_petal_length": missing_values_petal_length,
+            "average_value_sepal_width": average_value_sepal_width,
+            "highly_correlated_columns": highly_correlated_columns
+            })
+        answers_df.to_csv(index=False)
+        
+        return "Answers successfully submitted!"
+
+    def save_preprocessed_dataframe(self) -> str:
+        #TODO: Save dataframe.
+        return "Successfully saved the preprocessed DataFrame."
