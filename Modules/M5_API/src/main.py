@@ -56,7 +56,7 @@ def get_customer_by_name(lastName: str):
         if customers[customerId]['lastName'] == lastName:
             return customers[customerId]
 
-    return {"Error", f"Customer with last ame: '{lastName}' does not exists"}
+    return {"Error", f"Customer with last name: '{lastName}' does not exists"}
 
 
 @app.get("/get-customers/")
