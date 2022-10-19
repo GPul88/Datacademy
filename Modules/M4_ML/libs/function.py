@@ -11,12 +11,15 @@ class Function():
         self.file_name = file_name
         self.data = datasets.load_iris()
         self.working_dir = os.path.join(os.getcwd().split('Datacademy')[0], "Datacademy", "Modules", "M4_ML", "src")
-        self.data_dir = os.path.join(os.getcwd().split('Datacademy')[0], "Datacademy", "data", "M4_ML")
+        self.data_dir = os.path.join(os.getcwd().split('Datacademy')[0], "Datacademy", "Modules", "M4_ML")
         self.database_location = os.path.join(self.working_dir, self.file_name)
 
         self.imputed_outlier_index = 72
 
         self.iris = self.data_modification()
+        self.preprocessed_dataframe = None
+        self.supervised_dataframe = None
+        self.created_pipeline = None
 
 
     def data_modification(self) -> pd.DataFrame:
@@ -48,6 +51,7 @@ class Function():
 
         return iris
 
+
     def remove_0_in_outlier(self, outlier_value:float) -> None:
         """
         Adjusts the outlier value by removing the 0 that is inserted by accident.
@@ -67,6 +71,7 @@ class Function():
         # Append the new value to the DataFrame
         self.iris.loc[self.imputed_outlier_index, 'sepal length (cm)'] = new_value
 
+
     def prepare_supervised_learning(self) -> None:
         """
         Remove the added column created during clustering and add a target column containing all labels belonging to the Iris data.
@@ -78,6 +83,7 @@ class Function():
         self.iris = self.data_modification()
         self.iris['target'] = self.data.target.tolist()
 
+
     def get_unsupervised_dataset(self) -> pd.DataFrame:
         """
         Return the saved unsupervised dataset that is saved when preparing the supervised learning set.
@@ -87,42 +93,36 @@ class Function():
         """
         return self.unsupervised_dataset
 
-    def execute_function(self, exercise:str=None, save_output:bool=True):
+
+    def execute_function(self, answer, exercise:str=None, save_output:bool=True) -> str:
+        if not isinstance(answer, pd.DataFrame):
+            answers_df = pd.DataFrame(data={
+                "answer": [answer]})
+        else:
+            answers_df = answer
+        
         if save_output:
             if not os.path.exists(os.path.join(self.data_dir, "answers")):
                 os.mkdir(os.path.join(self.data_dir, "answers"))
             if exercise is None:
                 return "Please provide the exercise name in the function if you want to save the outputs."
-            self.data.to_csv(os.path.join(self.data_dir, "answers", f"{exercise}.csv"), sep=";", index=False)
-        return self.data
-
-    def answers_data_understanding(
-        self,
-        missing_values_petal_length: int,
-        average_value_sepal_width: float,
-        highly_correlated_columns: tuple, 
-        ) -> str:
-        """
-        Input answers for data understanding checks.
-
-        Args:
-            missing_values_petal_length (int): Missing values found in original data set.
-            average_value_sepal_width (float): Average value found in describe() function of Pandas.
-            highly_correlated_columns (tuple): Which columns are highly correlated in the correlation matrix.
-
-        Returns:
-            str: Return message is answers saved successfully.
-        """
-
-        answers_df = pd.DataFrame(data={
-            "missing_values_petal_length": missing_values_petal_length,
-            "average_value_sepal_width": average_value_sepal_width,
-            "highly_correlated_columns": highly_correlated_columns
-            })
-        answers_df.to_csv(index=False)
+            answers_df.to_csv(os.path.join(self.data_dir, "answers", f"{exercise}.csv"), sep=";", index=False)
         
-        return "Answers successfully submitted!"
+        return "Answer successfully submitted!"
 
-    def save_preprocessed_dataframe(self) -> str:
-        #TODO: Save dataframe.
+
+    def save_preprocessed_dataframe(self, preprocessed_df:pd.DataFrame) -> str:
+        self.preprocessed_dataframe = preprocessed_df
+    
         return "Successfully saved the preprocessed DataFrame."
+
+
+    def save_supervised_dataframe(self, supervised_df:pd.DataFrame) -> str:
+        self.supervised_dataframe = supervised_df
+        
+        return "Successfully saved the supervised DataFrame."
+
+    def save_pipeline_for_later_evaluation(self, pipeline, df:pd.DataFrame):
+        self.created_pipeline = pipeline
+
+        return "Successfully saved your created pipeline."

@@ -1,4 +1,4 @@
-from Modules.M4_ML.tests.validate_results import CheckResults
+from validate_results import CheckResults
 import os
 import pandas as pd
 
@@ -13,8 +13,6 @@ for exercise in exercises:
     exercise_df = pd.read_csv(os.path.join(answers_dir, exercise), sep=";")
     exercise_name = f"R_{exercise.split('.')[0]}"
     answers_dict[exercise_name] = exercise_df
-
-
 
 results = CheckResults(answers=answers_dict, module="M4_ML")
 
