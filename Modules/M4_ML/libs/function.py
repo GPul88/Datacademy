@@ -102,6 +102,17 @@ class Function():
         average_value_sepal_width: float,
         highly_correlated_columns: tuple, 
         ) -> str:
+        """
+        Input answers for data understanding checks.
+
+        Args:
+            missing_values_petal_length (int): Missing values found in original data set.
+            average_value_sepal_width (float): Average value found in describe() function of Pandas.
+            highly_correlated_columns (tuple): Which columns are highly correlated in the correlation matrix.
+
+        Returns:
+            str: Return message is answers saved successfully.
+        """
 
         answers_df = pd.DataFrame(data={
             "missing_values_petal_length": missing_values_petal_length,
