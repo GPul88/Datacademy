@@ -54,8 +54,8 @@ class CheckResults():
                     }
                 },
                 'R_C2': {
-                    "list" : {
-                        "answer": [0.933, 1.000, 0.867, 0.933, 0.967]
+                    "value" : {
+                        "answer": 0.9
                     } 
                 },
                 'R_D1': {
