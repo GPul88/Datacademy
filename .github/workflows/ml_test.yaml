@@ -1,4 +1,4 @@
-name: SQL tests
+name: ML tests
 
 on: 
   push:
