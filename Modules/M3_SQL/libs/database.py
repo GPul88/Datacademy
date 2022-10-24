@@ -40,8 +40,6 @@ class Database:
             self.SQLALCHEMY_DATABASE_URL, 
             connect_args={"check_same_thread": False})
 
-        print(self.SQLALCHEMY_DATABASE_URL)
-
         self.Base = _declarative.declarative_base()
     
     def initiate_tables(self) -> None:
