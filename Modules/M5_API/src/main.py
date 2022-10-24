@@ -19,7 +19,7 @@ import json
 # customers = data['customers.json']
 
 app = FastAPI()
-dataPath = os.path.join(os.getcwd().split('Datacademy_Demo')[0], "datacademy_demo", "data", "M5_API", "customers.json")
+dataPath = os.path.join(os.getcwd().split('Datacademy')[0], "Datacademy", "data", "M5_API", "customers.json")
 
 with open(dataPath, 'rb') as jsonFile:
     customers = json.load(jsonFile)
@@ -36,7 +36,6 @@ with open(dataPath, 'rb') as jsonFile:
 #     firstName: str
 #     lastName: str
 #     address: str
-
 
 # class CustomerAddress(BaseModel):
 #     address: str
