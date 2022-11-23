@@ -3,20 +3,6 @@ from pydantic import BaseModel
 from get_data import get_data_from_blob
 import os
 import json
-# from dotenv import load_dotenv
-
-
-# load_dotenv()
-
-# datacademy_id = os.getenv("TEST_DATACADEMY_ID")
-
-# data = get_data_from_blob(
-#     module="M5_API",
-#     datacademy_id=datacademy_id)
-
-# assert type(data) == dict, "Something went wrong with getting the data"
-
-# customers = data['customers.json']
 
 app = FastAPI()
 dataPath = os.path.join(os.getcwd().split('Datacademy')[0], "Datacademy", "data", "M5_API", "customers.json")
@@ -24,27 +10,6 @@ dataPath = os.path.join(os.getcwd().split('Datacademy')[0], "Datacademy", "data"
 with open(dataPath, 'rb') as jsonFile:
     customers = json.load(jsonFile)
     customers = {i: customers[str(i)] for i in range(len(customers.keys()))}
-
-
-# @app.get("/")
-# def welcome():
-#     return "Welcome at the Module 5 API!"
-
-
-# # create customer Classes
-# class Customer(BaseModel):
-#     firstName: str
-#     lastName: str
-#     address: str
-
-# class CustomerAddress(BaseModel):
-#     address: str
-
-
-# class CustomerName(BaseModel):
-#     firstName: str
-#     lastName: str
-
 
 # API GET Request(s) ####
 @app.get("/get-customer/{customerId}")
