@@ -1,7 +1,7 @@
 import sqlalchemy as _sql
 import sqlalchemy.orm as _orm
 
-import Modules.M7_FINAL.database.database as _database
+import Modules.M9_FINAL.database.database as _database
 
 
 class Auction(_database.Base):

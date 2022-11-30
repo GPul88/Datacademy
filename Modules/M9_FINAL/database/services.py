@@ -5,9 +5,9 @@ import pandas as pd
 
 import pickle as pkl
 
-import Modules.M7_FINAL.database.database as _database
-import Modules.M7_FINAL.database.models as _models
-import Modules.M7_FINAL.database.schemas as _schemas
+import Modules.M9_FINAL.database.database as _database
+import Modules.M9_FINAL.database.models as _models
+import Modules.M9_FINAL.database.schemas as _schemas
 
 def create_database():
     return _database.Base.metadata.create_all(bind=_database.engine)

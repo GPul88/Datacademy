@@ -3,7 +3,7 @@ import pandas as pd
 from tqdm import tqdm
 import os
 
-import Modules.M7_FINAL.database.models as _models
+import Modules.M9_FINAL.database.models as _models
 
 class uploadData:
     def __init__(self, db_name='database.db'):
