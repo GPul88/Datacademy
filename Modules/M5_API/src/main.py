@@ -1,11 +1,10 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from get_data import get_data_from_blob
 import os
 import json
 
 app = FastAPI()
-dataPath = os.path.join(os.getcwd().split('Datacademy')[0], "Datacademy", "data", "M5_API", "customers.json")
+dataPath = os.path.join(os.getcwd().split('datacademy')[0], "datacademy", "data", "M5_API", "customers.json")
 
 with open(dataPath, 'rb') as jsonFile:
     customers = json.load(jsonFile)
@@ -19,7 +18,7 @@ def get_customer(customerId: int):
     return customers[customerId]
 
 
-@app.get("/get-customer-by-name/{lastName}")
+@app.get("/get-customer-by-name/")
 def get_customer_by_name(lastName: str):
     for customerId in customers:
         if customers[customerId]['lastName'] == lastName:
@@ -35,45 +34,45 @@ def get_customers(skip: int = 0, limit: int = 3):
 
 # API POST Request(s) ####
 @app.post("/create-customer/{customerId}")
-def create_customer(customerId: int, customer: Customer):
+def create_customer(customerId: int, firstName: str, lastName: str, address: str):
     if customerId in customers:
         return {"Error", f"customerId already used, next id available is: {max(customers.keys())+1}."}
 
     customers[customerId] = {
-        "firstName": customer.firstName,
-        "lastName": customer.lastName,
-        "address": customer.address
+        "firstName": firstName,
+        "lastName": lastName,
+        "address": address
     }
     return customers[customerId]
 
 
 @app.post("/create-customer-auto-increment/")
-def create_customer_autoincrement(customer: Customer):
+def create_customer_autoincrement(firstName: str, lastName: str, address: str):
     customerId = max(customers.keys()) + 1
 
     customers[customerId] = {
-        "firstName": customer.firstName,
-        "lastName": customer.lastName,
-        "address": customer.address
+        "firstName": firstName,
+        "lastName": lastName,
+        "address": address
     }
     return customers[customerId]
 
 
 # API PUT Request(s) ####
 @app.put("/update-customer-address/{customerId}")
-def update_customer_address(customerId: int, customer_address: CustomerAddress):
+def update_customer_address(customerId: int, address: str):
     if customerId not in customers:
         return {"Error", "Customer does not exists."}
 
-    customers[customerId]['address'] = customer_address.address
+    customers[customerId]['address'] = address
     return customers[customerId]
 
 
 @app.put("/update-customer-address-by-name/")
-def update_customer_address_by_name(customer: Customer):
+def update_customer_address_by_name(firstName: str, lastName: str, address: str):
     for customerId in customers:
-        if customers[customerId]['firstName'] == customer.firstName and customers[customerId]['lastName'] == customer.lastName:
-            customers[customerId]['address'] = customer.address
+        if customers[customerId]['firstName'] == firstName and customers[customerId]['lastName'] == lastName:
+            customers[customerId]['address'] = address
 
             return customers[customerId]
 
@@ -89,10 +88,10 @@ def delete_customer(customerId: int):
 
 
 @app.delete("/delete-customer-by-name/")
-def delete_customer_by_name(name: CustomerName):
+def delete_customer_by_name(firstName: str, lastName: str):
     foundCustomer = False
     for customer in customers:
-        if customers[customer]['firstName'] == name.firstName and customers[customer]['lastName'] == name.lastName:
+        if customers[customer]['firstName'] == firstName and customers[customer]['lastName'] == lastName:
             foundCustomer = True
             del customers[customer]
             break
@@ -100,4 +99,4 @@ def delete_customer_by_name(name: CustomerName):
     if not foundCustomer:
         return {"Error": "The customer you are trying to delete does not exist."}
     else:
-        return {"Message": f"Customer {name.firstName} {name.lastName} deleted successfully."}
+        return {"Message": f"Customer {firstName} {lastName} deleted successfully."}
