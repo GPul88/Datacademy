@@ -10,9 +10,8 @@ class Function():
     def __init__(self, file_name='iris.csv'):
         self.file_name = file_name
         self.data = datasets.load_iris()
-        self.working_dir = os.path.join(os.getcwd().lower().split('Datacademy')[0], "Datacademy", "Modules", "M4_ML", "src")
-        self.data_dir = os.path.join(os.getcwd().lower().split('Datacademy')[0], "Datacademy", "Modules", "M4_ML")
-        self.database_location = os.path.join(self.working_dir, self.file_name)
+        self.working_dir = os.path.join(os.getcwd().split('datacademy_demo')[0], "datacademy_demo", "Modules", "M4_ML", "src")
+        self.answer_dir = os.path.join(os.getcwd().split('datacademy_demo')[0], "datacademy_demo", "Modules", "M4_ML")
 
         self.imputed_outlier_index = 72
 
@@ -102,11 +101,11 @@ class Function():
             answers_df = answer
         
         if save_output:
-            if not os.path.exists(os.path.join(self.data_dir, "answers")):
-                os.mkdir(os.path.join(self.data_dir, "answers"))
+            if not os.path.exists(os.path.join(self.answer_dir, "answers")):
+                os.mkdir(os.path.join(self.answer_dir, "answers"))
             if exercise is None:
                 return "Please provide the exercise name in the function if you want to save the outputs."
-            answers_df.to_csv(os.path.join(self.data_dir, "answers", f"{exercise}.csv"), sep=";", index=False)
+            answers_df.to_csv(os.path.join(self.answer_dir, "answers", f"{exercise}.csv"), sep=";", index=False)
         
         return "Answer successfully submitted!"
 

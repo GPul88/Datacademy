@@ -1,10 +1,18 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
-import os
 import json
+import os
+from fastapi import FastAPI
+
+"""
+As done with all other assignments, after completion of all exercises please push this directory using Git.
+Execution of 'git add .\Modules\M5_API\ ', then committing these changes and eventually pushing them will start the pre-written test code.
+This code will test whether the APIs that you created conform to the asked functionality.
+For a more detailed description about how to execute and review these tests, we ask you to return to either the (M3) SQL or (M4) ML course.
+At the bottom of these notebooks all steps are discussed in great detail.
+"""
 
 app = FastAPI()
-dataPath = os.path.join(os.getcwd().lower().split('datacademy')[0], "datacademy", "data", "M5_API", "customers.json")
+# dataPath = os.path.join(os.getcwd().split('datacademy_demo')[0], "datacademy_demo", "data", "M5_API", "customers.json")
+dataPath = os.path.join("data", "M5_API", "customers.json")
 
 with open(dataPath, 'rb') as jsonFile:
     customers = json.load(jsonFile)
@@ -18,7 +26,7 @@ def get_customer(customerId: int):
     return customers[customerId]
 
 
-@app.get("/get-customer-by-name/")
+@app.get("/get-customer-by-name/{lastName}")
 def get_customer_by_name(lastName: str):
     for customerId in customers:
         if customers[customerId]['lastName'] == lastName:
@@ -37,6 +45,9 @@ def get_customers(skip: int = 0, limit: int = 3):
 def create_customer(customerId: int, firstName: str, lastName: str, address: str):
     if customerId in customers:
         return {"Error", f"customerId already used, next id available is: {max(customers.keys())+1}."}
+        
+    if (customerId - max(customers.keys())) > 1:
+        return {"Error", f"customerId do not fit neatly together, next id available is: {max(customers.keys())+1}."}
 
     customers[customerId] = {
         "firstName": firstName,

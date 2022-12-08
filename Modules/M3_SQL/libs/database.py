@@ -9,12 +9,14 @@ from typing import Optional
 
 class Database:
     def __init__(self, db_name='M3_SQL.db'):
+        self.directory_name='datacademy_demo'
         self.db_name = db_name
-        self.working_dir = os.path.join(os.getcwd().lower().split('datacademy')[0], "datacademy", "Modules", "M3_SQL", "src")
-        self.data_dir = os.path.join(os.getcwd().lower().split('datacademy')[0], "datacademy", "data", "M3_SQL")
+        self.working_dir = os.path.join(os.getcwd().split(self.directory_name)[0], self.directory_name, "Modules", "M3_SQL", "src")
+        self.data_dir = os.path.join(os.getcwd().split(self.directory_name)[0], self.directory_name, "data", "M3_SQL")
+        self.answer_dir = os.path.join(os.getcwd().split(self.directory_name)[0], self.directory_name, "Modules", "M3_SQL", "answers")
         self.database_location = os.path.join(self.working_dir, self.db_name) 
         self.SQLALCHEMY_DATABASE_URL = f"sqlite:///{self.database_location}"
-
+        
         self.create_database()
         self.data_dtypes = {
             'customers': {'Id':int, 'firstName':str, 'lastName':str, 'address':str},
@@ -33,13 +35,13 @@ class Database:
         Create the database engine and the declarative base.
         """
         # If the database file already exists, delete file
-        if os.path.exists(os.path.join(os.getcwd(), self.db_name)):
-            os.remove(os.path.join(os.getcwd(), self.db_name))
+        if os.path.exists(os.path.join(self.working_dir, self.db_name)):
+            os.remove(os.path.join(self.working_dir, self.db_name))
 
         self.engine = _sql.create_engine(
             self.SQLALCHEMY_DATABASE_URL, 
             connect_args={"check_same_thread": False})
-
+        
         self.Base = _declarative.declarative_base()
     
     def initiate_tables(self) -> None:
@@ -113,7 +115,7 @@ class Database:
             list: Query results.
             pd.DataFrame: If requested, the results will be transformed into a pandas DataFrame.
         """
-        conn = sqlite3.connect(f'{os.getcwd()}/{self.db_name}')
+        conn = sqlite3.connect(self.database_location)
     
         cursor = conn.execute(query)
         data = cursor.fetchall()
@@ -145,11 +147,11 @@ class Database:
             return "Table dropped successfully!"
         else:
             if save_output:
-                if not os.path.exists(os.path.join(self.data_dir, "answers")):
-                    os.mkdir(os.path.join(self.data_dir, "answers"))
+                if not os.path.exists(self.answer_dir):
+                    os.mkdir(self.answer_dir)
                 if exercise is None:
                     return "Please provide the exercise name in the function if you want to save the outputs."
-                data.to_csv(os.path.join(self.data_dir, "answers", f"{exercise}.csv"), sep=";", index=False)
+                data.to_csv(os.path.join(self.answer_dir, f"{exercise}.csv"), sep=";", index=False)
             return data
 
     def retrieve_tables(self) -> list:
