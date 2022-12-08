@@ -4,7 +4,7 @@ import os
 import json
 
 app = FastAPI()
-dataPath = os.path.join(os.getcwd().split('datacademy')[0], "datacademy", "data", "M5_API", "customers.json")
+dataPath = os.path.join(os.getcwd().lower().split('datacademy')[0], "datacademy", "data", "M5_API", "customers.json")
 
 with open(dataPath, 'rb') as jsonFile:
     customers = json.load(jsonFile)

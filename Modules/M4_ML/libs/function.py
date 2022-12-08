@@ -10,8 +10,8 @@ class Function():
     def __init__(self, file_name='iris.csv'):
         self.file_name = file_name
         self.data = datasets.load_iris()
-        self.working_dir = os.path.join(os.getcwd().split('Datacademy')[0], "Datacademy", "Modules", "M4_ML", "src")
-        self.data_dir = os.path.join(os.getcwd().split('Datacademy')[0], "Datacademy", "Modules", "M4_ML")
+        self.working_dir = os.path.join(os.getcwd().lower().split('Datacademy')[0], "Datacademy", "Modules", "M4_ML", "src")
+        self.data_dir = os.path.join(os.getcwd().lower().split('Datacademy')[0], "Datacademy", "Modules", "M4_ML")
         self.database_location = os.path.join(self.working_dir, self.file_name)
 
         self.imputed_outlier_index = 72

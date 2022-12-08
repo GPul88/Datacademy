@@ -26,12 +26,12 @@ class uploadData:
         self.close_connection()
 
     def create_connection(self):
-        self.conn = sqlite3.connect(f"{os.getcwd().split('Datacademy')[0]}Datacademy/Modules/M7_FINAL/src/{self.db_name}")
+        self.conn = sqlite3.connect(f"{os.getcwd().lower().split('Datacademy')[0]}Datacademy/Modules/M7_FINAL/src/{self.db_name}")
         self.cur = self.conn.cursor()
     
     def push_data(self):
         for table in self.tables:
-            df = pd.read_csv(f"{os.getcwd().split('Datacademy')[0]}Datacademy/data/M7_FINAL/{self.dfs[table]}")
+            df = pd.read_csv(f"{os.getcwd().lower().split('Datacademy')[0]}Datacademy/data/M7_FINAL/{self.dfs[table]}")
             
             err_cntr = 0
 
