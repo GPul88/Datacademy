@@ -10,8 +10,8 @@ from typing import Optional
 class Database:
     def __init__(self, db_name='M3_SQL.db'):
         self.db_name = db_name
-        self.working_dir = os.path.join(os.getcwd().split('datacademy')[0], "datacademy", "Modules", "M3_SQL", "src")
-        self.data_dir = os.path.join(os.getcwd().split('datacademy')[0], "datacademy", "data", "M3_SQL")
+        self.working_dir = os.path.join(os.getcwd().lower().split('datacademy')[0], "datacademy", "Modules", "M3_SQL", "src")
+        self.data_dir = os.path.join(os.getcwd().lower().split('datacademy')[0], "datacademy", "data", "M3_SQL")
         self.database_location = os.path.join(self.working_dir, self.db_name) 
         self.SQLALCHEMY_DATABASE_URL = f"sqlite:///{self.database_location}"
 

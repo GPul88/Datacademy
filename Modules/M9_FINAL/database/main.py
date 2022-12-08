@@ -2,8 +2,8 @@ from typing import List
 import fastapi as _fastapi
 import sqlalchemy.orm as _orm
 
-import Modules.M7_FINAL.database.services as _services
-import Modules.M7_FINAL.database.schemas as _schemas
+import Modules.M9_FINAL.database.services as _services
+import Modules.M9_FINAL.database.schemas as _schemas
 
 app = _fastapi.FastAPI()
 _services.create_database()
