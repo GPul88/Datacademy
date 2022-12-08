@@ -25,7 +25,7 @@ def get_customer(customerId: int):
         return {"Error", "Customer does not exists yet."}
     return customers[customerId]
 
-
+#to make
 @app.get("/get-customer-by-name/{lastName}")
 def get_customer_by_name(lastName: str):
     for customerId in customers:
@@ -56,7 +56,7 @@ def create_customer(customerId: int, firstName: str, lastName: str, address: str
     }
     return customers[customerId]
 
-
+#to make
 @app.post("/create-customer-auto-increment/")
 def create_customer_autoincrement(firstName: str, lastName: str, address: str):
     customerId = max(customers.keys()) + 1
@@ -78,7 +78,7 @@ def update_customer_address(customerId: int, address: str):
     customers[customerId]['address'] = address
     return customers[customerId]
 
-
+#to make
 @app.put("/update-customer-address-by-name/")
 def update_customer_address_by_name(firstName: str, lastName: str, address: str):
     for customerId in customers:
@@ -97,7 +97,7 @@ def delete_customer(customerId: int):
     del customers[customerId]
     return {"Message": f"Customer {customerId} deleted successfully."}
 
-
+#to make
 @app.delete("/delete-customer-by-name/")
 def delete_customer_by_name(firstName: str, lastName: str):
     foundCustomer = False
