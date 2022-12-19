@@ -1,9 +1,9 @@
 import ast
 
 class CheckResults():
-    def __init__(self, answers: dict, module="M4_ML"):
+    def __init__(self, answers: dict, module="M04_ML"):
         self.correct_answers = {
-            'M4_ML': {
+            'M04_ML': {
                 'R_A1': {
                     "value" : {
                         "answer": 5 

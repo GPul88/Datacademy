@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 
 class ReviewFunction:
     def __init__(self):
-        self.working_dir = os.path.join(os.getcwd().lower().split('Datacademy')[0], "Datacademy", "Modules", "M2_PCC", "src")
-        self.data_dir = os.path.join(os.getcwd().lower().split('Datacademy')[0], "Datacademy", "data", "M2_PCC")
+        self.working_dir = os.path.join(os.getcwd().lower().split('Datacademy')[0], "Datacademy", "Modules", "M02_PCC", "src")
+        self.data_dir = os.path.join(os.getcwd().lower().split('Datacademy')[0], "Datacademy", "data", "M02_PCC")
 
         self.data = datasets.load_diabetes()
         self.n_features = self.data.data.shape[1]

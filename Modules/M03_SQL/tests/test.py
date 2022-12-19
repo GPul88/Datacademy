@@ -1,8 +1,8 @@
-from validate_results import CheckResults
+from Modules.M03_SQL.tests.validate_results import CheckResults
 import os
 import pandas as pd
 
-answers_dir = "./Modules/M4_ML/answers"
+answers_dir = "./Modules/M03_SQL/answers"
 
 exercises = [f for f in os.listdir(answers_dir) if ".csv" in f]
 exercises.sort()
@@ -14,7 +14,10 @@ for exercise in exercises:
     exercise_name = f"R_{exercise.split('.')[0]}"
     answers_dict[exercise_name] = exercise_df
 
-results = CheckResults(answers=answers_dict, module="M4_ML")
+
+
+results = CheckResults(answers=answers_dict, module="M03_SQL")
+
 
 def test_results():
     for module in results.results:

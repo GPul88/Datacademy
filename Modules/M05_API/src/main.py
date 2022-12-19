@@ -4,15 +4,15 @@ from fastapi import FastAPI
 
 """
 As done with all other assignments, after completion of all exercises please push this directory using Git.
-Execution of 'git add .\Modules\M5_API\ ', then committing these changes and eventually pushing them will start the pre-written test code.
+Execution of 'git add .\Modules\M05_API\ ', then committing these changes and eventually pushing them will start the pre-written test code.
 This code will test whether the APIs that you created conform to the asked functionality.
-For a more detailed description about how to execute and review these tests, we ask you to return to either the (M3) SQL or (M4) ML course.
+For a more detailed description about how to execute and review these tests, we ask you to return to either the (M03) SQL or (M04) ML course.
 At the bottom of these notebooks all steps are discussed in great detail.
 """
 
 app = FastAPI()
 # dataPath = os.path.join(os.getcwd().split('datacademy_demo')[0], "datacademy_demo", "data", "M5_API", "customers.json")
-dataPath = os.path.join("data", "M5_API", "customers.json")
+dataPath = os.path.join("data", "M05_API", "customers.json")
 
 with open(dataPath, 'rb') as jsonFile:
     customers = json.load(jsonFile)

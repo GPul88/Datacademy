@@ -1,4 +1,4 @@
-from Modules.M5_API.src.main import app
+from Modules.M05_API.src.main import app
 from fastapi.testclient import TestClient
 
 client = TestClient(app)
