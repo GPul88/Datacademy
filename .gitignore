@@ -129,4 +129,5 @@ dmypy.json
 .pyre/
 
 data/
-./Modules/M7_FINAL/src/savedModels/
+./Modules/M10_FINAL/src/database.db
+./Modules/M10_FINAL/src/trained_pipeline.pkl
