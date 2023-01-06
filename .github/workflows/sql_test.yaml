@@ -3,7 +3,7 @@ name: SQL tests
 on: 
   push:
     paths:
-      - 'Modules/M3_SQL/**'
+      - 'Modules/M03_SQL/**'
 
 jobs:
   run:
@@ -19,5 +19,5 @@ jobs:
         pip install -e .
     - name: PyTest
       run: |
-        pytest -v Modules/M3_SQL/tests/test.py
+        pytest -v Modules/M03_SQL/tests/test.py
           

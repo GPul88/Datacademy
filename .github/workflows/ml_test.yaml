@@ -3,7 +3,7 @@ name: ML tests
 on: 
   push:
     paths:
-      - 'Modules/M4_ML/**'
+      - 'Modules/M04_ML/**'
 
 jobs:
   run:
@@ -19,5 +19,5 @@ jobs:
         pip install -e .
     - name: PyTest
       run: |
-        pytest -v Modules/M4_ML/tests/test.py
+        pytest -v Modules/M04_ML/tests/test.py
           

@@ -3,7 +3,7 @@ name: API tests
 on: 
   push:
     paths:
-      - 'Modules/M5_API/**'
+      - 'Modules/M05_API/**'
 
 env:
   TEST_DATACADEMY_ID: ${{ secrets.TEST_DATACADEMY_ID }}
@@ -25,5 +25,5 @@ jobs:
         pip install -e .
     - name: PyTest
       run: |
-        pytest -v Modules/M5_API/tests/test.py
+        pytest -v Modules/M05_API/tests/test.py
           
