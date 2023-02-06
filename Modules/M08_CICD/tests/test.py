@@ -23,5 +23,6 @@ def test_helloname():
 def test_addnum():
     ans = answers_dict["A_2"]
 
-    assert ans.answer[0] == ans.a[0]+ans.b[0], f"The sum of {ans.a[0]}+{ans.b[0]} should be {ans.a[0]+ans.b[0]}"
+    assert ans.answer[0] == ans.a[0]+ans.b[0], \
+        f"The sum of {ans.a[0]}+{ans.b[0]} should be {ans.a[0]+ans.b[0]}"
 
