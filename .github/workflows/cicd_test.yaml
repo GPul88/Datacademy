@@ -9,7 +9,7 @@ jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-    - nane: Check out source repository
+    - name: Check out source repository
       uses: actions/checkout@v3
     
     - name: Set up Python
