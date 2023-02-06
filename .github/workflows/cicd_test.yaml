@@ -17,6 +17,7 @@ jobs:
 
     - name: Install Dependencies
       run: |
+        pip install pandas
         pip install pytest
         pip install -e .
 
