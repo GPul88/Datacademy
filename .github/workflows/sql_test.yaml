@@ -9,14 +9,18 @@ jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - nane: Check out source repository
+      uses: actions/checkout@v3
+    
     - name: Set up Python
       uses: actions/setup-python@v3
+
     - name: Install Dependencies
       run: |
         pip install pandas
         pip install pytest
         pip install -e .
+
     - name: PyTest
       run: |
         pytest -v Modules/M03_SQL/tests/test.py
