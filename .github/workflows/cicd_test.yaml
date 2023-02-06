@@ -1,9 +1,9 @@
-name: SQL tests
+name: CICD tests
 
 on: 
   push:
     paths:
-      - 'Modules/M03_SQL/**'
+      - 'Modules/M08_CICD/**'
 
 jobs:
   run:
@@ -17,11 +17,10 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        pip install pandas
         pip install pytest
         pip install -e .
 
     - name: PyTest
       run: |
-        pytest -v Modules/M03_SQL/tests/test.py
+        pytest -v Modules/M08_CICD/tests/test.py
           
