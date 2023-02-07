@@ -25,18 +25,17 @@ def get_customer(customerId: int):
         return {"Error", "Customer does not exists yet."}
     return customers[customerId]
 
-#to make
-@app.get("/get-customer-by-name/{lastName}")
-def get_customer_by_name(lastName: str):
-    ...
+#TODO: Create get request with end point: "/get-customer-by-name/{lastName}"
+...
 
 
-@app.get("/get-customers/")
-def get_customers(skip: int = 0, limit: int = 3):
-    ...
+
+#TODO: Create get request with end point: "/get-customers/"
+...
 
 
-# API POST Request(s)
+
+# API POST Request(s) ####
 @app.post("/create-customer/{customerId}")
 def create_customer(customerId: int, firstName: str, lastName: str, address: str):
     if customerId in customers:
@@ -52,9 +51,10 @@ def create_customer(customerId: int, firstName: str, lastName: str, address: str
     }
     return customers[customerId]
 
-#to make
-@app.post("/create-customer-auto-increment/")
+#TODO: Create post request with end point: "/create-customer-auto-increment/"
 ...
+
+
 
 
 # API PUT Request(s) ####
@@ -66,8 +66,10 @@ def update_customer_address(customerId: int, address: str):
     customers[customerId]['address'] = address
     return customers[customerId]
 
-#to make
+#TODO: Create put request with end point: "/update-customer-address-by-name/"
 ...
+
+
 
 
 # API DELETE Request(s) ####
@@ -79,5 +81,7 @@ def delete_customer(customerId: int):
     del customers[customerId]
     return {"Message": f"Customer {customerId} deleted successfully."}
 
-#to make
+#TODO: Create delete request with end point: "/delete-customer-by-name/"
 ...
+
+
