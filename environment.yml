@@ -92,7 +92,6 @@ dependencies:
   - python-dateutil=2.8.2=pyhd3eb1b0_0
   - python_abi=3.10=2_cp310
   - pytz=2022.1=py310haa95532_0
-  - pywin32=303=py310he2412df_0
   - pyzmq=23.2.1=py310h73ada01_0
   - qt-main=5.15.2=he8e5bd7_7
   - qt-webengine=5.15.9=hb9a9bb5_4
@@ -120,12 +119,12 @@ dependencies:
   - wcwidth=0.2.5=pyh9f0ad1d_2
   - wheel=0.37.1=pyhd3eb1b0_0
   - wincertstore=0.2=py310haa95532_2
+  - uvicorn=0.18.3=py310h5588dad_0
   - xz=5.2.5=h8cc25b3_1
   - zeromq=4.3.4=h0e60522_1
   - zlib=1.2.12=h8cc25b3_3
   - zstd=1.5.2=h19a0ad4_0
   - pip:
-    - anvil-uplink==0.4.0
     - argparse==1.4.0
     - future==0.18.2
     - ws4py==0.5.1
